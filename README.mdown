@@ -1,0 +1,39 @@
+# Block-based Action Proxy for UIAlertView and UIActionSheet
+
+This class allow the use of blocks to respond to UIAlertView and UIActionSheet delegate methods.
+
+It can be used by including `MTActionProxy.h` into an ObjC file, then obtaining a proxy and assigning block actions for each button, and using the proxy as the delegate for your UIAlertView or UIActionSheet instances:
+
+	MTActionProxy *proxy = [MTActionProxy proxy];
+	
+	[proxy addActionForButtonIndex:0	// Cancel Button
+				   completionBlock:^{
+		// Perform your completion actions here.
+	}];
+	
+	[proxy addActionForButtonIndex:1	// OK Button
+				   completionBlock:^{
+		// Perform your completion actions here.
+	}];
+	
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert", Nil) 
+                                message:NSLocalizedString(@"Message", Nil) 
+                               delegate:proxy
+                      cancelButtonTitle:@"Cancel"
+                      otherButtonTitles:@"OK", Nil] show];
+
+Note that there is no need to write a completion block for *every* button. If the user selects a button that does not have a completion block associated with it, the alert view or action sheet simply close without any further action.
+
+## Compatibility
+
+Requires ARC. Tested with iOS 4.2 and above.
+
+## License
+
+Copyright (c) 2011-2012 Marco Tabini
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
